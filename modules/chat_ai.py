@@ -9,19 +9,17 @@ load_dotenv()
 client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 def chat_with_ai_stream(prompt, system_prompt="Eres un asistente útil y conciso."):
-    """Consulta a Claude con un mensaje y devuelve la respuesta en tiempo real."""
+    """Consulta a Claude con un mensaje y devuelve la respuesta completa como texto."""
     try:
         response = client.messages.create(
-            model="claude-3-opus-20240229",  # O ajusta a 'claude-3-haiku-20240307' según tu suscripción
-            max_tokens=300,
+            model="claude-3-haiku-20240307",
+            max_tokens=1024,
             temperature=0.7,
             system=system_prompt,
             messages=[
                 {"role": "user", "content": prompt}
-            ],
-            stream=True
+            ]
         )
-        for chunk in response:
-            yield chunk.content[0].text
+        return response.content[0].text  # Devuelve el contenido completo
     except Exception as e:
-        yield f"Error al comunicarse con Claude: {str(e)}"
+        return f"Error al comunicarse con Claude: {str(e)}"

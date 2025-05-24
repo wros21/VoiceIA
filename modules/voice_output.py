@@ -7,6 +7,6 @@ engine.setProperty('volume', 1.0)  # Volumen máximo
 
 
 def speak_response(text):
-    print(f"Asistente: {text}")
+    print(f"Viernes: {text}")
     engine.say(text)
     engine.runAndWait()

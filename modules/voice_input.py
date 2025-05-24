@@ -9,7 +9,7 @@ def listen_command():
 
     try:
         command = recognizer.recognize_google(audio, language="es-ES")
-        print(f"Comando reconocido: {command}")
+        print(f"He reconocido tu comando: {command}")
         return command.lower()
     except sr.UnknownValueError:
         print("No se entendió el audio.")

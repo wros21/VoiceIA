@@ -1,34 +1,27 @@
 # modules/chat_ai.py
+
 import os
-import requests
+import anthropic
 from dotenv import load_dotenv
 
 load_dotenv()
 
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
+client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
-
-def get_ai_response(prompt):
-    if not DEEPSEEK_API_KEY:
-        return "No se encontró la clave API de DeepSeek."
-
-    url = "https://api.deepseek.com/v1/chat/completions"  # Cambiar si la URL oficial es distinta
-    headers = {
-        "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    data = {
-        "model": "deepseek-chat",  # Cambiar según documentación oficial
-        "messages": [
-            {"role": "system", "content": "Eres un asistente útil y amable."},
-            {"role": "user", "content": prompt}
-        ]
-    }
-
+def chat_with_ai_stream(prompt, system_prompt="Eres un asistente útil y conciso."):
+    """Consulta a Claude con un mensaje y devuelve la respuesta en tiempo real."""
     try:
-        response = requests.post(url, json=data, headers=headers)
-        response.raise_for_status()
-        result = response.json()
-        return result["choices"][0]["message"]["content"].strip()
+        response = client.messages.create(
+            model="claude-3-opus-20240229",  # O ajusta a 'claude-3-haiku-20240307' según tu suscripción
+            max_tokens=300,
+            temperature=0.7,
+            system=system_prompt,
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            stream=True
+        )
+        for chunk in response:
+            yield chunk.content[0].text
     except Exception as e:
-        return f"Error al consultar DeepSeek: {str(e)}"
+        yield f"Error al comunicarse con Claude: {str(e)}"

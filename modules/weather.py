@@ -1,29 +1,29 @@
-# modules/weather.py
 import requests
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
-
-# Asegúrate de tener una clave válida de OpenWeatherMap en una variable de entorno llamada OWM_API_KEY
 API_KEY = os.getenv("OWM_API_KEY")
-CITY = "Ciudad de Guatemala"  # Puedes cambiar esta ciudad
 
-
-def get_weather():
+def get_weather(city="Ciudad de Guatemala"):
     if not API_KEY:
         return "No se encontró la clave API para el clima."
 
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}&lang=es&units=metric"
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&lang=es&units=metric"
     try:
-        response = requests.get(url)
-        data = response.json()
+        respuesta = requests.get(url)
+        data = respuesta.json()
 
         if data.get("cod") != 200:
-            return f"Error al obtener el clima: {data.get('message', 'desconocido')}"
+            return f"No se pudo obtener el clima para {city}. Error: {data.get('message')}"
 
         temp = data["main"]["temp"]
-        description = data["weather"][0]["description"]
-        return f"El clima en {CITY} es {description} con una temperatura de {temp}°C."
+        desc = data["weather"][0]["description"]
+        humedad = data["main"]["humidity"]
+        viento = data["wind"]["speed"]
+
+        return (f"El clima en {city} es {desc} con una temperatura de {temp}°C, "
+                f"humedad {humedad}% y viento a {viento} metros por segundo.")
 
     except Exception as e:
-        return f"Error al consultar el clima: {str(e)}"
+        return f"Error al consultar el clima: {e}"

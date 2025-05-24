@@ -55,11 +55,19 @@ Habla comandos como:
 
     "¿Qué clima hace en Ciudad de Guatemala?"
 
-    "Reproduce Shape of You en YouTube"
+    "Reproduce en YouTube"
 
     "Abre el navegador"
 
     "Conversar con IA"
+    
+    "Busca en Google"
+
+    "Abre el archivo"
+
+    "Abre Spotify"
+
+    "Informacion"
 
 
 

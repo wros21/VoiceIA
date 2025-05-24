@@ -117,7 +117,17 @@ def main():
                 speak_response(respuesta)
             except Exception as e:
                 speak_response(f"Hubo un error consultando a la IA: {str(e)}")
-
+        elif "busca en google" in command or "buscar en google" in command:
+            speak_response("¿Qué quieres que busque en Google?")
+            query = listen_command()
+            if query:
+                import webbrowser
+                url = f"https://www.google.com/search?q={query.replace(' ', '+')}"
+                webbrowser.open(url)
+                speak_response(f"Buscando {query} en Google.")
+            else:
+                speak_response("No escuché tu búsqueda.")
+                
         elif any(word in command for word in ["buscar archivo", "busca archivo", "encuentra archivo"]):
             speak_response("¿Qué archivo deseas buscar?")
             file_name = listen_command()

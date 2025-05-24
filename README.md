@@ -37,10 +37,11 @@ venv\Scripts\activate     # en Windows
 ```
 4. Crea un archivo .env con tus claves de API:
 ```bash
-   OPENAI_API_KEY=tu_clave_openai
-   OPENWEATHER_API_KEY=tu_clave_openweather
+   ANTHROPIC_API_KEY=tu_clave_claude
+   OWM_API_KEY=tu_clave_openweather
    SPOTIPY_CLIENT_ID=tu_id_spotify
    SPOTIPY_CLIENT_SECRET=tu_secreto_spotify
+   SPOTIPY_REDIRECT_URI=tu_url_spotify
 ```
 ▶️ Uso
 

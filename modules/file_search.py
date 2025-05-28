@@ -4,16 +4,18 @@ from datetime import datetime
 
 def buscar_archivos(directorio, nombre=None, extension=None, fecha_modificada=None):
     """
-    Busca archivos en un directorio con filtros opcionales por nombre, extensión y fecha de modificación.
+    Busca archivos en un directorio utilizando filtros por voz.
+    Procesa comandos de voz para buscar por nombre, extensión y fecha de modificación.
 
     Args:
         directorio (str): Ruta base donde buscar.
-        nombre (str, optional): Parte del nombre del archivo a buscar.
-        extension (str, optional): Extensión del archivo (por ejemplo: '.pdf', '.txt').
-        fecha_modificada (str, optional): Fecha en formato 'YYYY-MM-DD'.
+        nombre (str, optional): Nombre o parte del nombre del archivo pronunciado.
+        extension (str, optional): Extensión del archivo pronunciada (ej: 'pdf', 'txt').
+        fecha_modificada (str, optional): Fecha pronunciada, convertida a formato 'YYYY-MM-DD'.
 
     Returns:
-        list: Archivos que coinciden con los criterios.
+        list: Lista de archivos que coinciden con los criterios de búsqueda por voz.
+              Retorna mensaje de error si no se encuentran coincidencias.
     """
     resultados = []
 

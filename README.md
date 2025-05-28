@@ -13,7 +13,7 @@ Proyecto del Curso de IA para asistente virtual
 - 🎵 Reproducción de música desde YouTube y Spotify
 - ⚙️ Automatización de tareas: abrir aplicaciones, controlar el sistema
 - 🗨️ Síntesis de voz para respuestas habladas
--    Envío de Correo electrónico
+- 📧 Envío de Correo electrónico
 
 ## 📁 Estructura del proyecto
 

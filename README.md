@@ -3,7 +3,7 @@ Proyecto del Curso de IA para asistente virtual
 
 # VoiceAI 🎙️🤖
 
-**VoiceAI** es un asistente virtual por voz que integra comandos automatizados, multimedia, clima y capacidades de conversación con IA como ChatGPT.
+**VoiceAI** es un asistente virtual por voz que integra comandos automatizados, multimedia, clima y capacidades de conversación con IA como Claude IA.
 
 ## 🚀 Características
 
@@ -13,6 +13,7 @@ Proyecto del Curso de IA para asistente virtual
 - 🎵 Reproducción de música desde YouTube y Spotify
 - ⚙️ Automatización de tareas: abrir aplicaciones, controlar el sistema
 - 🗨️ Síntesis de voz para respuestas habladas
+-    Envío de Correo electrónico
 
 ## 📁 Estructura del proyecto
 
@@ -42,12 +43,17 @@ venv\Scripts\activate     # en Windows
    SPOTIPY_CLIENT_ID=tu_id_spotify
    SPOTIPY_CLIENT_SECRET=tu_secreto_spotify
    SPOTIPY_REDIRECT_URI=tu_url_spotify
+   EMAIL_REMITENTE=correo
+   EMAIL_CONTRASENA=contrasena_de_aplicacion
 ```
 ▶️ Uso
 
 Ejecuta el asistente con:
 
 python main.py
+
+Para Inciiar el asistente di: "Hola Viernes"
+Con este comando se inicia el ciclo de conversación
 
 Habla comandos como:
 
@@ -68,6 +74,8 @@ Habla comandos como:
     "Abre Spotify"
 
     "Informacion"
+
+    "Enviar Correo"
 
 
 

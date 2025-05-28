@@ -1,3 +1,4 @@
+from fileinput import filename
 import os
 import re
 import platform
@@ -9,7 +10,7 @@ from modules.automation import abrir_aplicacion, cerrar_aplicacion, buscar_archi
 from modules.multimedia import handle_multimedia
 from modules.weather import get_weather
 from modules.chat_ai import chat_with_ai_stream
-from modules.envio_correo import enviar_correo
+from modules.enviocorreo import enviar_correo
 
 def abrir_archivo(ruta):
     try:
@@ -53,7 +54,7 @@ def interpretar_comando(comando):
             if fecha_match:
                 fecha = fecha_match.group()
 
-        resultados = buscar_archivos(nombre=nombre, tipo=tipo, fecha=fecha)
+        resultados = buscar_archivos(".", nombre=filename)
         if resultados:
             return f"Encontré {len(resultados)} archivos."
         else:
@@ -102,15 +103,35 @@ def main():
         elif "spotify" in command:
             resultado = abrir_aplicacion("spotify")
             speak_response(resultado)
+       
+        #Abrir la calculadora
+        elif any(word in command for word in ["calculadora", "calcular"]):
+            resultado = abrir_aplicacion("calculadora")
+            speak_response(resultado)
+        
+        #Pausar Spotify
+        elif any(word in command for word in ["pausa spotify", "pausar spotify"]):
+            from modules.multimedia import pause_spotify_macos
+            resultado = pause_spotify_macos()
+            speak_response(resultado)
 
+        #Abrir Spotify
+        elif any(word in command for word in ["siguiente canción", "siguiente spotify", "next spotify"]):
+            from modules.multimedia import next_track_spotify_macos
+            resultado = next_track_spotify_macos()
+            speak_response(resultado)
+        
+        #Abrir Netflix
         elif any(word in command for word in ["netflix", "películas", "series"]):
             resultado = abrir_aplicacion("netflix")
             speak_response(resultado)
-
+        
+        #Poner música en youtube
         elif any(word in command for word in ["youtube", "música", "musica", "pon música", "pon musica"]):
             resultado = handle_multimedia(command)
             speak_response(resultado)
-
+        
+        #Buscar en la IA
         elif any(word in command for word in ["consulta", "información", "ayúdame", "pregunta", "háblame de"]):
             speak_response("Consultando a la IA...")
             try:
@@ -118,6 +139,8 @@ def main():
                 speak_response(respuesta)
             except Exception as e:
                 speak_response(f"Hubo un error consultando a la IA: {str(e)}")
+        
+        #Buscar en Google
         elif "busca en google" in command or "buscar en google" in command:
             speak_response("¿Qué quieres que busque en Google?")
             query = listen_command()
@@ -128,7 +151,7 @@ def main():
                 speak_response(f"Buscando {query} en Google.")
             else:
                 speak_response("No escuché tu búsqueda.")
-                
+        #Buscar archivos        
         elif any(word in command for word in ["buscar archivo", "busca archivo", "encuentra archivo"]):
             speak_response("¿Qué archivo deseas buscar?")
             file_name = listen_command()
@@ -151,6 +174,7 @@ def main():
                 speak_response(resultado)
             else:
                 speak_response("No escuché el nombre del archivo.")
+        #Enviar correo        
         elif any(word in command for word in ["manda un correo", "enviar un correo", "quiero enviar un correo"]):
             speak_response("¿Cuál es el correo del destinatario?")
             nombre_destinatario = listen_command().lower().replace(" ", "")

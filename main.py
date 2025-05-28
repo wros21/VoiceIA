@@ -11,6 +11,8 @@ from modules.multimedia import handle_multimedia
 from modules.weather import get_weather
 from modules.chat_ai import chat_with_ai_stream
 from modules.enviocorreo import enviar_correo
+from modules.envio_mensaje import enviar_mensaje
+
 
 def abrir_archivo(ruta):
     try:
@@ -188,7 +190,16 @@ def main():
 
             resultado = enviar_correo(destinatario, asunto, cuerpo)
             speak_response(resultado)
-
+            
+       #Enviar mensaje por telegram
+        elif any(word in command for word in ["manda un mensaje", "enviar un mensaje", "quiero enviar un mensaje"]):
+            speak_response("¿Cuál es el numero de telefono?")
+            numero_telefono = listen_command().lower().replace(" ", "")
+            numero = f"+502{numero_telefono}"
+            speak_response("¿Cuál es el mensaje?")
+            mensaje = listen_command()
+            resultado = enviar_mensaje(numero, mensaje)
+            speak_response(resultado)
         else:
             speak_response("No entendí el comando. Intenta nuevamente.")
             # Para usar interpretar_comando, descomenta esta línea:

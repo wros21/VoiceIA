@@ -9,6 +9,7 @@ from modules.automation import abrir_aplicacion, cerrar_aplicacion, buscar_archi
 from modules.multimedia import handle_multimedia
 from modules.weather import get_weather
 from modules.chat_ai import chat_with_ai_stream
+from modules.envio_correo import enviar_correo
 
 def abrir_archivo(ruta):
     try:
@@ -150,6 +151,19 @@ def main():
                 speak_response(resultado)
             else:
                 speak_response("No escuché el nombre del archivo.")
+        elif any(word in command for word in ["manda un correo", "enviar un correo", "quiero enviar un correo"]):
+            speak_response("¿Cuál es el correo del destinatario?")
+            nombre_destinatario = listen_command().lower().replace(" ", "")
+            destinatario = f"{nombre_destinatario}@gmail.com"
+
+            speak_response("¿Cuál es el asunto del correo?")
+            asunto = listen_command()
+
+            speak_response("¿Cuál es el mensaje?")
+            cuerpo = listen_command()
+
+            resultado = enviar_correo(destinatario, asunto, cuerpo)
+            speak_response(resultado)
 
         else:
             speak_response("No entendí el comando. Intenta nuevamente.")

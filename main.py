@@ -193,12 +193,11 @@ def main():
             
        #Enviar mensaje por telegram
         elif any(word in command for word in ["manda un mensaje", "enviar un mensaje", "quiero enviar un mensaje"]):
-            speak_response("¿Cuál es el numero de telefono?")
-            numero_telefono = listen_command().lower().replace(" ", "")
-            numero = f"+502{numero_telefono}"
+            speak_response("¿Cuál es el número de teléfono o nombre del contacto?")
+            contacto = listen_command()
             speak_response("¿Cuál es el mensaje?")
             mensaje = listen_command()
-            resultado = enviar_mensaje(numero, mensaje)
+            resultado = enviar_mensaje(contacto, mensaje)
             speak_response(resultado)
         else:
             speak_response("No entendí el comando. Intenta nuevamente.")

@@ -45,6 +45,9 @@ venv\Scripts\activate     # en Windows
    SPOTIPY_REDIRECT_URI=tu_url_spotify
    EMAIL_REMITENTE=correo
    EMAIL_CONTRASENA=contrasena_de_aplicacion
+   API_ID=id_api_telegram
+   API_HASH=api_hash_telegram
+   PHONE_NUMBER=numero_telefono_propio(+502)
 ```
 ▶️ Uso
 

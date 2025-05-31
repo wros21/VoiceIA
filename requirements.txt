@@ -19,3 +19,4 @@ pyaudio
 requests
 python-dotenv
 anthropic
+telethon
